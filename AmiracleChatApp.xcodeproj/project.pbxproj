@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		4E5E3BF4747608DCFAB7C640 /* Pods_AmiracleChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F87F199CEF119C4F9531E9AB /* Pods_AmiracleChatApp.framework */; };
 		CF12C3D920BBDA150005F514 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF12C3D820BBDA150005F514 /* AppDelegate.swift */; };
-		CF12C3DB20BBDA150005F514 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF12C3DA20BBDA150005F514 /* ViewController.swift */; };
+		CF12C3DB20BBDA150005F514 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF12C3DA20BBDA150005F514 /* MessagesController.swift */; };
 		CF12C3DE20BBDA150005F514 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF12C3DC20BBDA150005F514 /* Main.storyboard */; };
 		CF12C3E020BBDA150005F514 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF12C3DF20BBDA150005F514 /* Assets.xcassets */; };
 		CF12C3E320BBDA150005F514 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF12C3E120BBDA150005F514 /* LaunchScreen.storyboard */; };
 		CF12C3EC20BBDBCF0005F514 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF12C3EB20BBDBCF0005F514 /* LoginViewController.swift */; };
 		CF12C3EE20BC83550005F514 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF12C3ED20BC83550005F514 /* GoogleService-Info.plist */; };
+		CF17E38320BE2A120080879F /* NewMessageableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF17E38220BE2A120080879F /* NewMessageableViewController.swift */; };
+		CF17E38620BE30730080879F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF17E38520BE30730080879F /* UserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,13 +24,15 @@
 		A5048D1C2F15EE0C9616EC28 /* Pods-AmiracleChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmiracleChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AmiracleChatApp/Pods-AmiracleChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CF12C3D520BBDA150005F514 /* AmiracleChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmiracleChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF12C3D820BBDA150005F514 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CF12C3DA20BBDA150005F514 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CF12C3DA20BBDA150005F514 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		CF12C3DD20BBDA150005F514 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CF12C3DF20BBDA150005F514 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF12C3E220BBDA150005F514 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CF12C3E420BBDA150005F514 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF12C3EB20BBDBCF0005F514 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CF12C3ED20BC83550005F514 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CF17E38220BE2A120080879F /* NewMessageableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageableViewController.swift; sourceTree = "<group>"; };
+		CF17E38520BE30730080879F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		F87F199CEF119C4F9531E9AB /* Pods_AmiracleChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AmiracleChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,6 +86,7 @@
 		CF12C3D720BBDA150005F514 /* AmiracleChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				CF17E38420BE305E0080879F /* Model */,
 				CF12C3EA20BBDBB00005F514 /* Controller */,
 				CF12C3D820BBDA150005F514 /* AppDelegate.swift */,
 				CF12C3DC20BBDA150005F514 /* Main.storyboard */,
@@ -96,10 +101,19 @@
 		CF12C3EA20BBDBB00005F514 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CF12C3DA20BBDA150005F514 /* ViewController.swift */,
+				CF12C3DA20BBDA150005F514 /* MessagesController.swift */,
 				CF12C3EB20BBDBCF0005F514 /* LoginViewController.swift */,
+				CF17E38220BE2A120080879F /* NewMessageableViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		CF17E38420BE305E0080879F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF17E38520BE30730080879F /* UserModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,8 +237,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF12C3EC20BBDBCF0005F514 /* LoginViewController.swift in Sources */,
-				CF12C3DB20BBDA150005F514 /* ViewController.swift in Sources */,
+				CF12C3DB20BBDA150005F514 /* MessagesController.swift in Sources */,
 				CF12C3D920BBDA150005F514 /* AppDelegate.swift in Sources */,
+				CF17E38620BE30730080879F /* UserModel.swift in Sources */,
+				CF17E38320BE2A120080879F /* NewMessageableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
