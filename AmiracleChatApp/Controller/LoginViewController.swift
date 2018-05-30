@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
         if loginRegisterSegmentedController.selectedSegmentIndex == 0 {
             handleLogin()
         } else {
-            handleRegister()
+            self.handleRegister()
         }
     }
     
@@ -53,32 +53,7 @@ class LoginViewController: UIViewController {
         
     }
     
-    
-    @objc func handleRegister() {
-        guard let email = emailTextField.text , let password = passwordTextField.text, let name = nameTextField.text else {
-            print("Form is not valid")
-            return
-        }
-        Auth.auth().createUser(withEmail: email, password: password) { (User, error) in
-            if error != nil {
-                print("There was an error authenticating")
-            }
-            guard let uid = User?.user.uid else {
-                return
-            }
-            let ref = Database.database().reference(fromURL: "https://amiraclemessaging.firebaseio.com/")
-            let userRef = ref.child("users").child(uid)
-            
-            let values = ["username": name, "email": email]
-            userRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
-                if err != nil {
-                    print("Problem updating child values", err)
-                }
-                self.dismiss(animated: true, completion: nil)
-            })
-        }
-        print(123)
-    }
+
     
     lazy var loginRegisterSegmentedController: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["Login", "Register"])
@@ -145,13 +120,17 @@ class LoginViewController: UIViewController {
         return tf
     }()
     
-    let profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "redlogo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleProfileImagepicker)))
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
