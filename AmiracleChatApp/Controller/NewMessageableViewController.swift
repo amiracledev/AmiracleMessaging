@@ -46,6 +46,8 @@ class NewMessageableViewController: UITableViewController {
       let user = users[indexPath.row]
         cell.textLabel?.text = user.username
         cell.detailTextLabel?.text = user.email
+        
+        
         return cell
     }
 }

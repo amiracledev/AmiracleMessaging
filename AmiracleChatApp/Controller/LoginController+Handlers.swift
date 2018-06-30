@@ -53,23 +53,37 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
             
                 storageRef.putData(uploadData, metadata: nil, completion: { (metaData, Err) in
                     if Err != nil {
-                        print(Err)
+                        print(Err!)
                         return
                     }
-                    
-                })
-            }
-            let ref = Database.database().reference(fromURL: "https://amiraclemessaging.firebaseio.com/")
-            let userRef = ref.child("users").child(uid)
-            
-            let values = ["username": name, "email": email]
-            userRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
-                if err != nil {
-                    print("Problem updating child values", err)
-                }
-                self.dismiss(animated: true, completion: nil)
+                    storageRef.downloadURL(completion: { (url, err) in
+                        if let err = err{
+                            print("Unable to retrieve URL due to error: \(err.localizedDescription)")
+                        }
+                        let profilePicUrl = url?.absoluteString
+                        print("Profile Image successfully uploaded into storage with url: \(profilePicUrl ?? "" )")
+                        let values = ["name": name, "email": email, "profileImageUrl": profilePicUrl] as [String : AnyObject]
+                        self.registerUserIntoDatabase(uid: uid, values: values)
+                    })
             })
+           
         }
         print(123)
     }
+}
+
+private func registerUserIntoDatabase(uid: String, values: [String: AnyObject]) {
+    let ref = Database.database().reference(fromURL: "https://amiraclemessaging.firebaseio.com/")
+    let userRef = ref.child("users").child(uid)
+    
+    userRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
+        
+        if let err = err {
+            print(err)
+            return
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    })
+}
 }
