@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 class NewMessageableViewController: UITableViewController {
-
+    
     let cellID = "cellID"
     var users = [UserModel]()
     
@@ -29,12 +29,13 @@ class NewMessageableViewController: UITableViewController {
                 let user = UserModel()
                 user.username   = dictionary["username"] as? String
                 user.email = dictionary["email"] as? String
+                user.profileImg = dictionary["profileImageUrl"] as? String
                 self.users.append(user)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
             }
-    })
+        })
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -43,14 +44,31 @@ class NewMessageableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as! UserCell
         
-      let user = users[indexPath.row]
+        let user = users[indexPath.row]
         cell.textLabel?.text = user.username
         cell.detailTextLabel?.text = user.email
         
+        if let profileImgUrl = user.profileImg {
+            let link = URL(string: profileImgUrl)
+            URLSession.shared.dataTask(with: link!) { (data, response, err) in
+                if err != nil {
+                    print(err)
+                    return
+                }
+                DispatchQueue.main.async {
+                    cell.imageView?.image = UIImage(data: data!)
+                    
+                }
+                }.resume()
+        }
         
         return cell
+        
     }
+    
+    
 }
+
 
 class UserCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
