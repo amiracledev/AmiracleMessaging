@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import Kingfisher
+
 class NewMessageableViewController: UITableViewController {
     
     let cellID = "cellID"
@@ -47,32 +49,40 @@ class NewMessageableViewController: UITableViewController {
         let user = users[indexPath.row]
         cell.textLabel?.text = user.username
         cell.detailTextLabel?.text = user.email
-        
-        if let profileImgUrl = user.profileImg {
-            let link = URL(string: profileImgUrl)
-            URLSession.shared.dataTask(with: link!) { (data, response, err) in
-                if err != nil {
-                    print(err)
-                    return
-                }
-                DispatchQueue.main.async {
-                    cell.imageView?.image = UIImage(data: data!)
-                    
-                }
-                }.resume()
-        }
-        
+//        cell.imageView?.image = UIImage(named: "skull")
+        let url = URL(string: user.profileImg!)
+        print(url)
+    
         return cell
         
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 56
+    }
     
 }
 
 
 class UserCell: UITableViewCell {
+    
+    let profileImageView: UIImageView = {
+       let imageView = UIImageView()
+        imageView.image = UIImage(named: "skull")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        addSubview(profileImageView)
+//         constraints for image
+     
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
